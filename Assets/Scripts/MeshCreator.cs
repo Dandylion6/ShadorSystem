@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MeshCreator : MonoBehaviour
 {
@@ -15,9 +16,15 @@ public class MeshCreator : MonoBehaviour
         }
     }
 
+
+    [SerializeField] private Material material = null;
+
+
     protected MeshFilter Filter => filter;
+    protected int VertexCount => vertices.Count;
 
     private MeshFilter filter = null;
+    private new MeshRenderer renderer = null;
     private Mesh mesh = null;
     private List<Vector3> vertices = null;
     private List<Vector2> uvs = null;
@@ -38,25 +45,9 @@ public class MeshCreator : MonoBehaviour
         filter.mesh = mesh;
 
         if (!TryGetComponent(out MeshRenderer _))
-            gameObject.AddComponent<MeshRenderer>();
-    }
+            renderer = gameObject.AddComponent<MeshRenderer>();
 
-
-    private void Start()
-    {
-        int v0 = AddVertex(new Vector3(0, 0, 0), new Vector2(0, 0));
-        int v1 = AddVertex(new Vector3(0, 1, 1), new Vector2(0, 1));
-        int v2 = AddVertex(new Vector3(1, 0, 0), new Vector2(1, 0));
-        int v3 = AddVertex(new Vector3(1, 1, 1), new Vector2(1, 1));
-
-        // Two triangles that are connected and are a quad (are smooth).
-        AddTriangle(v0, v1, v2);
-        AddTriangle(v1, v3, v2);
-
-        // A triangle that is separate which makes it sharp.
-        AddTriangle(new Vector3(1, 1, 1), new Vector3(2, 1, 1), new Vector3(1, 0, 0));
-
-        CreateMesh();
+        renderer.material = material;
     }
 
 
@@ -71,6 +62,13 @@ public class MeshCreator : MonoBehaviour
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
         filter.mesh = mesh;
+    }
+
+
+    protected Vector3 GetVertex(int index)
+    {
+        if (index >= vertices.Count) return Vector3.zero;
+        return vertices[index];
     }
 
 
@@ -124,5 +122,31 @@ public class MeshCreator : MonoBehaviour
             vertex2 = AddVertex(point2)
         };
         triangles.Add(triangle);
+    }
+
+
+    protected void AddQuad(int vertex0, int vertex1, int vertex2, int vertex3)
+    {
+        if (vertex0 >= vertices.Count) return;
+        if (vertex1 >= vertices.Count) return;
+        if (vertex2 >= vertices.Count) return;
+        if (vertex3 >= vertices.Count) return;
+
+        Triangle triangle1 = new(vertex0, vertex1, vertex2);
+        Triangle triangle2 = new(vertex0, vertex2, vertex3);
+
+        triangles.Add(triangle1);
+        triangles.Add(triangle2);
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        if (vertices == null) return;
+        Gizmos.color = Color.yellow;
+        foreach (Vector3 vertex in vertices)
+        {
+            Gizmos.DrawSphere(transform.TransformPoint(vertex), 0.1f);
+        }
     }
 }

@@ -473,9 +473,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186856429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03f3c9846d9de3448f925162b21e8b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 54aee962a9baf5642a0280875cafe9c6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeshCreator
+  m_EditorClassIdentifier: Assembly-CSharp::SphereCreator
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
