@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class SphereCreator : MeshCreator
@@ -84,5 +85,59 @@ public class SphereCreator : MeshCreator
 
     private void GenerateCubeSphere()
     {
+        // Information of a cube's faces.
+        Vector3[] origins = new Vector3[6]
+        {
+            new(-1.0f, -1.0f, 1.0f), // Front
+            new(1.0f, -1.0f, -1.0f), // Back
+            new(-1.0f, -1.0f, 1.0f), // Left
+            new(1.0f, -1.0f, -1.0f), // Right
+            new(-1.0f, 1.0f, -1.0f), // Top
+            new(-1.0f, -1.0f, 1.0f) // Bottom
+        };
+
+        // The relative right hand side of a face.
+        Vector3[] rights = new Vector3[6]
+        {
+            Vector3.right,
+            Vector3.left,
+            Vector3.back,
+            Vector3.forward,
+            Vector3.right,
+            Vector3.right
+        };
+
+        // The relative up direction of a face.
+        Vector3[] ups = new Vector3[6]
+        {
+            Vector3.up,
+            Vector3.up,
+            Vector3.up,
+            Vector3.up,
+            Vector3.forward,
+            Vector3.back
+        };
+
+        for (int i = 0; i < 6;  ++i)
+        {
+            Vector3 origin = origins[i];
+            Vector3 right = rights[i];
+            Vector3 up = ups[i];
+            GenerateSubdivisions(origin, right, up);
+        }
     } 
+
+
+    void GenerateSubdivisions(Vector3 origin, Vector3 right, Vector3 up)
+    {
+        int subdivisions = size + 1;
+        for (int i = 0; i <= subdivisions * subdivisions; ++i)
+        {
+            float x = 2.0f * (i % subdivisions) / subdivisions;
+            float y = 2.0f * (i / subdivisions) / subdivisions;
+
+            Vector3 point = origin + right * x + up * y;
+            AddVertex(0.5f * size * point.normalized);
+        }
+    }
 }
