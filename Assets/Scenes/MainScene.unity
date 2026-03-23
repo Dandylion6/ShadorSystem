@@ -476,6 +476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aee962a9baf5642a0280875cafe9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SphereCreator
+  material: {fileID: 2100000, guid: c7aa64d5ee4ca0d4cb6951fb5e9626a7, type: 2}
+  type: 1
+  size: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
