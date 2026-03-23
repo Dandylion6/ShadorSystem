@@ -88,8 +88,8 @@ public class SphereCreator : MeshCreator
         // Information of a cube's faces.
         Vector3[] origins = new Vector3[6]
         {
-            new(-1.0f, -1.0f, 1.0f), // Front
-            new(1.0f, -1.0f, -1.0f), // Back
+            new(-1.0f, -1.0f, -1.0f), // Front
+            new(1.0f, -1.0f, 1.0f), // Back
             new(-1.0f, -1.0f, 1.0f), // Left
             new(1.0f, -1.0f, -1.0f), // Right
             new(-1.0f, 1.0f, -1.0f), // Top
@@ -125,19 +125,38 @@ public class SphereCreator : MeshCreator
             Vector3 up = ups[i];
             GenerateSubdivisions(origin, right, up);
         }
+
+        CreateMesh();
     } 
 
 
     void GenerateSubdivisions(Vector3 origin, Vector3 right, Vector3 up)
     {
         int subdivisions = size + 1;
-        for (int i = 0; i <= subdivisions * subdivisions; ++i)
+        int stride = subdivisions + 1;
+        int vertexOffset = VertexCount;
+
+        for (int i = 0; i < stride * stride; ++i)
         {
-            float x = 2.0f * (i % subdivisions) / subdivisions;
-            float y = 2.0f * (i / subdivisions) / subdivisions;
+            float x = 2.0f * (i % stride) / subdivisions;
+            float y = 2.0f * (i / stride) / subdivisions;
 
             Vector3 point = origin + right * x + up * y;
-            AddVertex(0.5f * size * point.normalized);
+            Vector2 uv = new(x, y);
+            AddVertex(0.5f * size * point.normalized, uv);
+        }
+
+        for (int i = 0; i < subdivisions * subdivisions; ++i)
+        {
+            int row = i / subdivisions;
+            int column = i % subdivisions;
+            
+            int vertex0 = vertexOffset + row * stride + column;
+            int vertex1 = vertex0 + 1;
+            int vertex2 = vertex0 + stride;
+            int vertex3 = vertex2 + 1;
+
+            AddQuad(vertex1, vertex0, vertex2, vertex3);
         }
     }
 }
