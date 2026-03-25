@@ -432,7 +432,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1186856429
+--- !u!1 &1851534169
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,22 +440,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1186856430}
-  - component: {fileID: 1186856431}
+  - component: {fileID: 1851534170}
+  - component: {fileID: 1851534171}
   m_Layer: 0
-  m_Name: Planet
+  m_Name: Solar System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1186856430
+--- !u!4 &1851534170
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186856429}
+  m_GameObject: {fileID: 1851534169}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -464,21 +464,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1186856431
+--- !u!114 &1851534171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186856429}
+  m_GameObject: {fileID: 1851534169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54aee962a9baf5642a0280875cafe9c6, type: 3}
+  m_Script: {fileID: 11500000, guid: fe412cd89295b7d4e87edec7b0fa129e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SphereCreator
-  material: {fileID: 2100000, guid: c7aa64d5ee4ca0d4cb6951fb5e9626a7, type: 2}
-  type: 0
-  size: 16
+  m_EditorClassIdentifier: Assembly-CSharp::SolarSystemGenerator
+  startingMass: 100
+  starPrefab: {fileID: 5864687985836212019, guid: 8b45384adca827f489d9fa613d995b4e, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -486,4 +485,4 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 1186856430}
+  - {fileID: 1851534170}

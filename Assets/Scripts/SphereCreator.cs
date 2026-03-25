@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class SphereCreator : MeshCreator
@@ -13,14 +12,28 @@ public class SphereCreator : MeshCreator
     [Header("Generation Settings")]
     [SerializeField] private SphereType type = SphereType.UVSphere;
     [SerializeField] private int size = 6;
+    [SerializeField] private bool generateOnStart = false;
 
-    void Start()
+
+    private void Start()
     {
+        if (generateOnStart) GenerateSphere(size, type);
+    }
+
+
+    public void GenerateSphere(int size, SphereType type = SphereType.CubeSphere, Material material = null)
+    {
+        this.size = size;
+        if (material != null) SetMaterial(material);
+        this.type = type;
+
         switch (type)
         {
-            case SphereType.CubeSphere: GenerateCubeSphere(); 
+            case SphereType.CubeSphere:
+                GenerateCubeSphere();
                 break;
-            case SphereType.UVSphere: GenerateUVSphere();
+            case SphereType.UVSphere:
+                GenerateUVSphere();
                 break;
         }
     }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MeshCreator : MonoBehaviour
 {
@@ -17,7 +16,9 @@ public class MeshCreator : MonoBehaviour
     }
 
 
+    [Header("Mesh Settings")]
     [SerializeField] private Material material = null;
+    [SerializeField] private bool gizmoOnSelect = false;
 
 
     protected MeshFilter Filter => filter;
@@ -29,6 +30,9 @@ public class MeshCreator : MonoBehaviour
     private List<Vector3> vertices = null;
     private List<Vector2> uvs = null;
     private List<Triangle> triangles = null;
+
+
+    public void SetMaterial(Material material) => this.material = material;
 
 
     private void Awake()
@@ -142,7 +146,9 @@ public class MeshCreator : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (!gizmoOnSelect) return;
         if (vertices == null) return;
+
         Gizmos.color = Color.yellow;
         foreach (Vector3 vertex in vertices)
         {
