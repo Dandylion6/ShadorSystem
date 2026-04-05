@@ -45,6 +45,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d95afb72efd08845ad891705f6ca9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Star
+  emissionTexture: {fileID: 0}
+  temperatureColor:
+    serializedVersion: 2
+    key0: {r: 0.41509432, g: 0.16441059, b: 0.13901745, a: 1}
+    key1: {r: 0.764151, g: 0.20166345, b: 0.10453011, a: 1}
+    key2: {r: 0.9245283, g: 0.41683924, b: 0.14391243, a: 0}
+    key3: {r: 1, g: 0.90881014, b: 0.33490568, a: 0}
+    key4: {r: 0.99279773, g: 1, b: 0.6650944, a: 0}
+    key5: {r: 0.92982376, g: 0.990566, b: 0.9718025, a: 0}
+    key6: {r: 0.5882353, g: 1, b: 0.95810497, a: 0}
+    key7: {r: 0.25943398, g: 0.64906144, b: 1, a: 0}
+    ctime0: 1535
+    ctime1: 4290
+    ctime2: 9487
+    ctime3: 20717
+    ctime4: 32401
+    ctime5: 44085
+    ctime6: 55141
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 2
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  temperatureRange: {x: 1000, y: 30000}
+  sizeRange: {x: 20, y: 50}
+  starTemperature: 0
+  stellarMass: 0
 --- !u!114 &2849211153945116132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aee962a9baf5642a0280875cafe9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SphereCreator
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: 6a2e89edb98efad4584ec4a175810552, type: 2}
   gizmoOnSelect: 0
-  type: 1
+  type: 0
   size: 6
   generateOnStart: 0

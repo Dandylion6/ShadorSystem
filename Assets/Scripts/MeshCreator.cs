@@ -21,7 +21,9 @@ public class MeshCreator : MonoBehaviour
     [SerializeField] private bool gizmoOnSelect = false;
 
 
-    protected MeshFilter Filter => filter;
+    public MeshFilter Filter => filter;
+    public MeshRenderer Renderer => renderer;
+    public Mesh Mesh => mesh;
     protected int VertexCount => vertices.Count;
 
     private MeshFilter filter = null;
