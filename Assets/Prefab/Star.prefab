@@ -78,6 +78,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   temperatureRange: {x: 1000, y: 30000}
   sizeRange: {x: 20, y: 50}
+  emissionNoiseScale: 0.7
   starTemperature: 0
   stellarMass: 0
 --- !u!114 &2849211153945116132

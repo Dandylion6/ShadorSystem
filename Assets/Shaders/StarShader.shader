@@ -74,7 +74,7 @@ Shader "Custom/StarShader"
                 float fresnel = pow(1.0 - saturate(normalToViewProjection), _EdgePower);
 
                 half4 color = _BaseColor;
-                color.rgb += emission.rgb * _EmissionStrength * 0.3;
+                color.rgb += emission.rgb * _EmissionStrength * 0.2;
                 color.rgb += fresnel * _BaseColor.rgb * _EmissionStrength;
 
                 color.a = 1.0;

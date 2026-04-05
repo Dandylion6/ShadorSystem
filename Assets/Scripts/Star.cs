@@ -9,6 +9,7 @@ public class Star : CelestialBody
     [SerializeField] private Gradient temperatureColor = new();
     [SerializeField] private Vector2 temperatureRange = new();
     [SerializeField] private Vector2 sizeRange = new();
+    [SerializeField] private float emissionNoiseScale = 3.0f;
     [Space]
     public float starTemperature = 0.0f;
     public float stellarMass = 0.0f;
@@ -51,6 +52,9 @@ public class Star : CelestialBody
         Vector2 noiseOffset = Vector2.zero;
         noiseOffset.x = (float)random.NextDouble() * 10000.0f;
 
+        Vector2 noiseOffset1 = Vector2.zero;
+        noiseOffset1.x = (float)random.NextDouble() * 10000.0f;
+
         int pixelCount = emissionTexture.width * emissionTexture.height;
         for (int i = 0; i < pixelCount; ++i)
         {
@@ -60,8 +64,11 @@ public class Star : CelestialBody
             float normalizedX = (float)x / emissionTexture.width;
             float normalizedY = (float)y / emissionTexture.height;
 
-            Vector2 noisePosition = new Vector2(normalizedX, normalizedY) * starSize + noiseOffset;
+            Vector2 noisePosition = emissionNoiseScale * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset;
+            Vector2 noisePosition1 = emissionNoiseScale * 2.5f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset1;
+
             float noiseValue = Mathf.PerlinNoise(noisePosition.x, noisePosition.y);
+            noiseValue += Mathf.PerlinNoise(noisePosition1.x, noisePosition1.y) * 0.6f;
             Color color = Color.white * noiseValue;
 
             color.a = 1.0f;
