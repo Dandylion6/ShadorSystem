@@ -154,9 +154,10 @@ public class SphereCreator : MeshCreator
             float x = 2.0f * (i % stride) / subdivisions;
             float y = 2.0f * (i / stride) / subdivisions;
 
-            Vector3 point = origin + right * x + up * y;
+            Vector3 point = (origin + right * x + up * y).normalized;
             Vector2 uv = new(x, y);
-            AddVertex(0.5f * size * point.normalized, uv);
+            AddVertex(0.5f * size * point, uv, point);
+
         }
 
         for (int i = 0; i < subdivisions * subdivisions; ++i)

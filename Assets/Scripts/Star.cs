@@ -42,6 +42,7 @@ public class Star : CelestialBody
         Color baseColor = temperatureColor.Evaluate(normalizedMass);
 
         starMaterial.SetColor("_BaseColor", baseColor);
+        starMaterial.SetFloat("_Radius", starSize);
 
         SetRotationalSpeed(8.0f);
     }
@@ -52,8 +53,8 @@ public class Star : CelestialBody
         Vector2 noiseOffset = Vector2.zero;
         noiseOffset.x = (float)random.NextDouble() * 10000.0f;
 
-        Vector2 noiseOffset1 = Vector2.zero;
-        noiseOffset1.x = (float)random.NextDouble() * 10000.0f;
+        Vector2 noiseOffset1 = noiseOffset + Vector2.right * 10000.0f;
+        Vector2 noiseOffset2 = noiseOffset + Vector2.right * 30000.0f;
 
         int pixelCount = emissionTexture.width * emissionTexture.height;
         for (int i = 0; i < pixelCount; ++i)
@@ -65,10 +66,12 @@ public class Star : CelestialBody
             float normalizedY = (float)y / emissionTexture.height;
 
             Vector2 noisePosition = emissionNoiseScale * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset;
-            Vector2 noisePosition1 = emissionNoiseScale * 2.5f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset1;
+            Vector2 noisePosition1 = emissionNoiseScale * 2.0f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset1;
+            Vector2 noisePosition2 = emissionNoiseScale * 0.3f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset2;
 
             float noiseValue = Mathf.PerlinNoise(noisePosition.x, noisePosition.y);
-            noiseValue += Mathf.PerlinNoise(noisePosition1.x, noisePosition1.y) * 0.6f;
+            noiseValue *= 0.4f + Mathf.PerlinNoise(noisePosition1.x, noisePosition1.y) * 0.6f;
+            noiseValue *= 0.6f + Mathf.PerlinNoise(noisePosition2.x, noisePosition2.y) * 0.4f;
             Color color = Color.white * noiseValue;
 
             color.a = 1.0f;

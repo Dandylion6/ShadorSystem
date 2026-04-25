@@ -476,10 +476,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe412cd89295b7d4e87edec7b0fa129e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemGenerator
-  startingMass: 1.25
+  startingMass: 1.1
   starPrefab: {fileID: 5864687985836212019, guid: 8b45384adca827f489d9fa613d995b4e, type: 3}
   useRandomSeed: 1
-  seed: 0
+  seed: 8887578
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
