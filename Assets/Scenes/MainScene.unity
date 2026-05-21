@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9a254172392dc7a4cb306f8d1bec9085, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -199,7 +199,7 @@ Camera:
   m_GameObject: {fileID: 129925117}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.17495002, g: 0.1709238, b: 0.21698111, a: 0}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe412cd89295b7d4e87edec7b0fa129e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemGenerator
-  startingMass: 1.25
+  startingMass: 1.3
   starPrefab: {fileID: 5864687985836212019, guid: 8b45384adca827f489d9fa613d995b4e, type: 3}
   useRandomSeed: 1
   seed: 0
