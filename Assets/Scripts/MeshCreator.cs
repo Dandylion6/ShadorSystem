@@ -30,6 +30,7 @@ public class MeshCreator : MonoBehaviour
     private new MeshRenderer renderer = null;
     private Mesh mesh = null;
     private List<Vector3> vertices = null;
+    private List<Vector3> normals = null;
     private List<Vector2> uvs = null;
     private List<Triangle> triangles = null;
 
@@ -40,9 +41,10 @@ public class MeshCreator : MonoBehaviour
     private void Awake()
     {
         // Makes sure the object is initalized properly.
-        vertices = new List<Vector3>();
-        uvs = new List<Vector2>();
-        triangles = new List<Triangle>();
+        vertices = new();
+        normals = new();
+        uvs = new();
+        triangles = new();
 
         if (!TryGetComponent(out filter))
             filter = gameObject.AddComponent<MeshFilter>();
@@ -62,11 +64,15 @@ public class MeshCreator : MonoBehaviour
         mesh.Clear();
 
         mesh.vertices = vertices.ToArray();
+        mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
         mesh.triangles = TrianglesToInt();
 
         mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
+        if (normals.Count == 0)
+        {
+            mesh.RecalculateNormals();
+        }
         filter.mesh = mesh;
     }
 
@@ -104,6 +110,15 @@ public class MeshCreator : MonoBehaviour
     {
         vertices.Add(vertex);
         uvs.Add(uv);
+        return vertices.Count - 1;
+    }
+
+
+    protected int AddVertex(Vector3 vertex, Vector2 uv, Vector3 normal)
+    {
+        vertices.Add(vertex);
+        uvs.Add(uv);
+        normals.Add(normal);
         return vertices.Count - 1;
     }
 
