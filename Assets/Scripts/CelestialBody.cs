@@ -8,13 +8,15 @@ public class CelestialBody : MonoBehaviour
     protected const int SMALL_BODY_TEXTURE_SIZE = 512;
 
     private float rotationSpeed = 1.0f;
+    private Vector3 northPole = Vector3.up;
 
     
     public void SetRotationalSpeed(float rotationSpeed) => this.rotationSpeed = rotationSpeed;
+    public void SetNorthPole(Vector3 poleDirection) => northPole = poleDirection.normalized;
 
 
     void Update()
     {
-        transform.Rotate(transform.up, rotationSpeed * Time.deltaTime);
+        transform.Rotate(northPole, rotationSpeed * Time.deltaTime);
     }
 }
