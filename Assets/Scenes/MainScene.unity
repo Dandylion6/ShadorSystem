@@ -478,8 +478,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SolarSystemGenerator
   startingMass: 1.1
   starPrefab: {fileID: 5864687985836212019, guid: 8b45384adca827f489d9fa613d995b4e, type: 3}
+  planetPrefab: {fileID: 3977324071959080244, guid: 7015e047a2b0d4b49b6ba4028e13ed5c, type: 3}
   useRandomSeed: 1
   seed: 8887578
+  minimumPlanetMass: 0.1
+  minPlanets: 3
+  maxPlanets: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

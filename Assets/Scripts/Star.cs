@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCreator))]
 public class Star : CelestialBody
 {
     private const float MASS_CONSTANT = 1.0f / 100.0f;
@@ -12,46 +11,45 @@ public class Star : CelestialBody
     [SerializeField] private float emissionNoiseScale = 3.0f;
     [Space]
     public float starTemperature = 0.0f;
-    public float stellarMass = 0.0f;
-    private SphereCreator creator = null;
-    private System.Random random = null;
+
+    private float normalizedMass = 0.0f;
 
 
-    private void Awake()
+    public override void Generate()
     {
-        creator = GetComponent<SphereCreator>();
         emissionTexture = new(DEFAULT_BODY_TEXTURE_SIZE, DEFAULT_BODY_TEXTURE_SIZE);
-    }
 
+        GenerateEmissionNoise();
 
-    public void Generate(float stellarMass, System.Random random)
-    {
-        this.random = random;
-        this.stellarMass = stellarMass;
-
-        float normalizedMass = Mathf.Pow(stellarMass * MASS_CONSTANT, 0.4f);
-        int starSize = Mathf.RoundToInt(Mathf.Lerp(sizeRange.x, sizeRange.y, normalizedMass));
-
-        GenerateEmissionNoise(starSize);
-        creator.GenerateSphere(starSize);
-
-        Material starMaterial = creator.Renderer.material;
+        Material starMaterial = Sphere.Renderer.material;
         starMaterial.SetTexture("_EmissionMap", emissionTexture);
 
         starTemperature = Mathf.Lerp(temperatureRange.x, temperatureRange.y, normalizedMass);
         Color baseColor = temperatureColor.Evaluate(normalizedMass);
 
         starMaterial.SetColor("_BaseColor", baseColor);
-        starMaterial.SetFloat("_Radius", starSize);
-
-        SetRotationalSpeed(8.0f);
+        starMaterial.SetFloat("_Radius", BodySize);
     }
 
 
-    public void GenerateEmissionNoise(int starSize)
+    protected override BodyData CreateData()
+    {
+        normalizedMass = Mathf.Pow(Energy * MASS_CONSTANT, 0.4f);
+        float starSize = Mathf.Lerp(sizeRange.x, sizeRange.y, normalizedMass);
+
+        return new BodyData()
+        {
+            northPole = SolarPlaneUp, // The plane up is the same as the north pole of the star.
+            rotationSpeed = 4.0f,
+            bodySize = starSize
+        };
+    }
+
+
+    private void GenerateEmissionNoise()
     {
         Vector2 noiseOffset = Vector2.zero;
-        noiseOffset.x = (float)random.NextDouble() * 10000.0f;
+        noiseOffset.x = (float)Random.NextDouble() * 10000.0f;
 
         Vector2 noiseOffset1 = noiseOffset + Vector2.right * 10000.0f;
         Vector2 noiseOffset2 = noiseOffset + Vector2.right * 30000.0f;
@@ -65,9 +63,9 @@ public class Star : CelestialBody
             float normalizedX = (float)x / emissionTexture.width;
             float normalizedY = (float)y / emissionTexture.height;
 
-            Vector2 noisePosition = emissionNoiseScale * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset;
-            Vector2 noisePosition1 = emissionNoiseScale * 2.0f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset1;
-            Vector2 noisePosition2 = emissionNoiseScale * 0.3f * starSize * new Vector2(normalizedX, normalizedY) + noiseOffset2;
+            Vector2 noisePosition = emissionNoiseScale * BodySize * new Vector2(normalizedX, normalizedY) + noiseOffset;
+            Vector2 noisePosition1 = emissionNoiseScale * 2.0f * BodySize * new Vector2(normalizedX, normalizedY) + noiseOffset1;
+            Vector2 noisePosition2 = emissionNoiseScale * 0.3f * BodySize * new Vector2(normalizedX, normalizedY) + noiseOffset2;
 
             float noiseValue = Mathf.PerlinNoise(noisePosition.x, noisePosition.y);
             noiseValue *= 0.4f + Mathf.PerlinNoise(noisePosition1.x, noisePosition1.y) * 0.6f;

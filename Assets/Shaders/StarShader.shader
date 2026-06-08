@@ -105,13 +105,13 @@ Shader "Custom/StarShader"
                 float normalToViewProjection = dot(wordSpaceNormal, viewDirection);
                 float fresnel = pow(1.0 - saturate(normalToViewProjection), _EdgePower);
 
+
                 half4 color = _BaseColor;
+                float emissionLumocity = dot(emission.rgb, float3(0.2126, 0.7152, 0.0722));
                 float brightness = lerp(min(1.0, _EmissionStrength), _EmissionStrength, fresnel);
-                brightness += lerp(-0.2, 0.9, emission) * _EmissionStrength;
+                brightness += emissionLumocity * _EmissionStrength;
 
-
-
-                color *= brightness;
+                color *= max(brightness, 0.0);
                 color.a = 1.0;
                 return color;
             }

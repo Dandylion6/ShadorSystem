@@ -77,10 +77,9 @@ MonoBehaviour:
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
   temperatureRange: {x: 1000, y: 30000}
-  sizeRange: {x: 20, y: 50}
+  sizeRange: {x: 27, y: 60}
   emissionNoiseScale: 0.7
   starTemperature: 0
-  stellarMass: 0
 --- !u!114 &2849211153945116132
 MonoBehaviour:
   m_ObjectHideFlags: 0
